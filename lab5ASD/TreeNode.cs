@@ -52,6 +52,45 @@ namespace lab5asd
             }
         }
 
+        public void Delete(BinaryTree tree, TreeNode node)
+        {
+            if(node.left == null)
+            {
+                Transplant(tree, node, node.right);
+            } else if(node.right == null)
+            {
+                Transplant(tree, node, node.left);
+            } else
+            {
+                TreeNode y = FindTreeMin(node.right);
+                if(y.parent != node)
+                {
+                    Transplant(tree, y, y.right);
+                    y.right = node.right;
+                    y.right.parent = y;
+                }
+                Transplant(tree, node, y);
+                y.left = node.left;
+                y.left.parent = y;
+            }
+        }
+
+        public void Transplant(BinaryTree tree, TreeNode FirstNode, TreeNode SecondNode)
+        {
+            if(FirstNode.parent == null)
+            {
+                tree.root = SecondNode;
+            } else if (FirstNode == FirstNode.parent.left)
+            {
+                FirstNode.parent.left = SecondNode;
+            } else
+            {
+                FirstNode.parent.right = SecondNode;
+            }
+
+            SecondNode.parent = FirstNode.parent;
+        }
+
         public void TreeWalk(TreeNode node)
         {
             if (node.left != null)

@@ -22,6 +22,14 @@ namespace lab5asd
             }
         }
 
+        public void Delete(int data)
+        {
+            if (root != null)
+            {
+                root.Delete(data);
+            }
+        }
+
         public void InorderTreeWalk()
         {
             if (root != null)
