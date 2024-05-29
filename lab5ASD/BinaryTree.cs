@@ -22,11 +22,11 @@ namespace lab5asd
             }
         }
 
-        public void Delete(int data)
+        public void Delete(TreeNode node)
         {
             if (root != null)
             {
-                root.Delete(data);
+                root.Delete(root, node);
             }
         }
 

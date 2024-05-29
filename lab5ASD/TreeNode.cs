@@ -9,6 +9,7 @@ namespace lab5asd
     public class TreeNode
     {
         public int key;
+        public TreeNode parent;
         public TreeNode left;
         public TreeNode right;
 
@@ -52,34 +53,34 @@ namespace lab5asd
             }
         }
 
-        public void Delete(BinaryTree tree, TreeNode node)
+        public void Delete(TreeNode root, TreeNode node)
         {
             if(node.left == null)
             {
-                Transplant(tree, node, node.right);
+                Transplant(root, node, node.right);
             } else if(node.right == null)
             {
-                Transplant(tree, node, node.left);
+                Transplant(root, node, node.left);
             } else
             {
                 TreeNode y = FindTreeMin(node.right);
                 if(y.parent != node)
                 {
-                    Transplant(tree, y, y.right);
+                    Transplant(root, y, y.right);
                     y.right = node.right;
                     y.right.parent = y;
                 }
-                Transplant(tree, node, y);
+                Transplant(root, node, y);
                 y.left = node.left;
                 y.left.parent = y;
             }
         }
 
-        public void Transplant(BinaryTree tree, TreeNode FirstNode, TreeNode SecondNode)
+        public void Transplant(TreeNode root, TreeNode FirstNode, TreeNode SecondNode)
         {
             if(FirstNode.parent == null)
             {
-                tree.root = SecondNode;
+                root = SecondNode;
             } else if (FirstNode == FirstNode.parent.left)
             {
                 FirstNode.parent.left = SecondNode;
@@ -139,7 +140,7 @@ namespace lab5asd
             }
         }
 
-        public void FindTreeMin(TreeNode node)
+        public TreeNode FindTreeMin(TreeNode node)
         {
             if(node.left != null)
             {
@@ -148,6 +149,7 @@ namespace lab5asd
             {
                 Console.WriteLine("Min element: " + node.key);
             }
+            return node;
         }
 
         public void FindTreeMax(TreeNode node)
@@ -173,6 +175,38 @@ namespace lab5asd
             {
                 Console.WriteLine("Error! This tree haven`t predecessor, because left tree does not exist");
             }
+        }
+
+        public void BinaryTreeLeftRotate(TreeNode root, TreeNode node)
+        {
+            TreeNode TempNode = node.right;
+            node.right = TempNode.left;
+
+            if(TempNode.left != null)
+            {
+                TempNode.left.parent = node;
+            }
+
+            TempNode.parent = node.parent;
+
+            if(node.parent == null)
+            {
+                root = TempNode;
+            } else if(node == node.parent.left)
+            {
+                node.parent.left = TempNode;
+            } else
+            {
+                node.parent.right = TempNode;
+            }
+
+            TempNode.left = node;
+            node.parent = TempNode;
+        }
+
+        public void BinaryTreeRightRotate(TreeNode root, TreeNode node)
+        {
+            TreeNode TempNode = node.left;
         }
     }
 }
