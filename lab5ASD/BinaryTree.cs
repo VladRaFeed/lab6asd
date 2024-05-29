@@ -106,5 +106,34 @@ namespace lab5asd
             TempNode.left = node;
             node.parent = TempNode;
         }
+
+        public void BinaryTreeRightRotate(TreeNode node)
+        {
+            TreeNode TempNode = node.left;
+            node.left = TempNode.right;
+
+            if(TempNode.right != null)
+            {
+                TempNode.right.parent = node;
+            }
+
+            TempNode.parent = node.parent;
+
+            if (node.parent == null)
+            {
+                root = TempNode;
+            }
+            else if(node == node.parent.right)
+            {
+                node.parent.right = TempNode;
+            } 
+            else
+            {
+                node.parent.left = TempNode;
+            }
+
+            TempNode.right = node;
+            node.parent = TempNode;
+        }
     }
 }

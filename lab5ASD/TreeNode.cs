@@ -58,10 +58,12 @@ namespace lab5asd
             if(node.left == null)
             {
                 Transplant(root, node, node.right);
-            } else if(node.right == null)
+            } 
+            else if(node.right == null)
             {
                 Transplant(root, node, node.left);
-            } else
+            } 
+            else
             {
                 TreeNode y = FindTreeMin(node.right);
                 if(y.parent != node)
@@ -81,10 +83,12 @@ namespace lab5asd
             if(FirstNode.parent == null)
             {
                 root = SecondNode;
-            } else if (FirstNode == FirstNode.parent.left)
+            } 
+            else if (FirstNode == FirstNode.parent.left)
             {
                 FirstNode.parent.left = SecondNode;
-            } else
+            } 
+            else
             {
                 FirstNode.parent.right = SecondNode;
             }
@@ -175,11 +179,6 @@ namespace lab5asd
             {
                 Console.WriteLine("Error! This tree haven`t predecessor, because left tree does not exist");
             }
-        }
-
-        public void BinaryTreeRightRotate(TreeNode root, TreeNode node)
-        {
-            TreeNode TempNode = node.left;
         }
     }
 }
